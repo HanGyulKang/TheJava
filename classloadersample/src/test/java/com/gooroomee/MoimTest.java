@@ -15,7 +15,7 @@ public class MoimTest {
 //        moim.maxNumberOfAttendees = 100;
 //        moim.numberOfEnrollment = 20;
 //        Assert.assertFalse(moim.isEnrollmentFull());
-
+//
 //        moim.numberOfEnrollment = 100;
 //        Assert.assertTrue(moim.isEnrollmentFull());
     }
