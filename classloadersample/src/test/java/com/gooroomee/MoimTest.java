@@ -12,6 +12,7 @@ public class MoimTest {
         moim.maxNumberOfAttendees = 0;
         Assert.assertFalse(moim.isEnrollmentFull());
 
+        // git push test
 //        moim.maxNumberOfAttendees = 100;
 //        moim.numberOfEnrollment = 20;
 //        Assert.assertFalse(moim.isEnrollmentFull());
