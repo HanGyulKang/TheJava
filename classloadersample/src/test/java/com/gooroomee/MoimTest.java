@@ -13,11 +13,11 @@ public class MoimTest {
         Assert.assertFalse(moim.isEnrollmentFull());
 
         // git push test
-//        moim.maxNumberOfAttendees = 100;
-//        moim.numberOfEnrollment = 20;
-//        Assert.assertFalse(moim.isEnrollmentFull());
-//
-//        moim.numberOfEnrollment = 100;
-//        Assert.assertTrue(moim.isEnrollmentFull());
+        moim.maxNumberOfAttendees = 100;
+        moim.numberOfEnrollment = 20;
+        Assert.assertFalse(moim.isEnrollmentFull());
+
+        moim.numberOfEnrollment = 100;
+        Assert.assertTrue(moim.isEnrollmentFull());
     }
 }
