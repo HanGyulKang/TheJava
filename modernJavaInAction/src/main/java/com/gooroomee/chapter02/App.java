@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 동작 파라미터화 코드 전달하기
+ * chapter 02 : 동작 파라미터화 코드 전달하기
  */
 public class App {
 
