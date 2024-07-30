@@ -25,7 +25,11 @@ public class Apple {
     }
 
     public boolean colorOf(Color color) {
-        return this.getColor() == color;
+        return this.color == color;
+    }
+
+    public boolean isWeightGreaterThan(int weight) {
+        return this.weight > weight;
     }
 
     public interface Predicate<Apple> {
