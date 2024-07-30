@@ -2,7 +2,7 @@ package com.gooroomee.chapter01.study;
 
 public class Apple {
     public enum Color {
-        RED, GREEN, BLUE;
+        RED, GREEN, BLUE, EMPTY;
     }
 
     private final int weight;
@@ -30,10 +30,6 @@ public class Apple {
 
     public boolean isWeightGreaterThan(int weight) {
         return this.weight > weight;
-    }
-
-    public interface Predicate<Apple> {
-        boolean test(Apple apple);
     }
 
     @Override
