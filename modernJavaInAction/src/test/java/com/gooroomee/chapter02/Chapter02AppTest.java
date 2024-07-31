@@ -1,35 +1,17 @@
 package com.gooroomee.chapter02;
 
+import com.gooroomee.AppTest;
 import com.gooroomee.domain.Apple;
 import com.gooroomee.chapter02.study.AppleGreenColorPredicate;
 import com.gooroomee.chapter02.study.AppleHeavyWeightPredicate;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.*;
 
-public class Chapter02AppTest {
-
-    Apple appleA;
-    Apple appleB;
-    Apple appleC;
-    Apple appleD;
-    Apple appleE;
-
-    List<Apple> apples;
-
-    @Before
-    public void before() {
-        appleA = new Apple(180, Apple.Color.BLUE);
-        appleB = new Apple(160, Apple.Color.GREEN);
-        appleC = new Apple(140, Apple.Color.RED);
-        appleD = new Apple(120, Apple.Color.GREEN);
-        appleE = new Apple(100, Apple.Color.RED);
-        apples = List.of(appleA, appleB, appleC, appleD, appleE);
-    }
+public class Chapter02AppTest extends AppTest {
 
     @Test
     public void applePredicateTest() {

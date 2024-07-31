@@ -1,38 +1,29 @@
 package com.gooroomee;
 
+import com.gooroomee.domain.Apple;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.junit.Before;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest(String testName )
-    {
-        super( testName );
-    }
+import java.util.List;
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+public class AppTest {
+    protected Apple appleA;
+    protected Apple appleB;
+    protected Apple appleC;
+    protected Apple appleD;
+    protected Apple appleE;
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    protected List<Apple> apples;
+
+    @Before
+    public void before() {
+        appleA = new Apple(180, Apple.Color.BLUE);
+        appleB = new Apple(160, Apple.Color.GREEN);
+        appleC = new Apple(140, Apple.Color.RED);
+        appleD = new Apple(120, Apple.Color.GREEN);
+        appleE = new Apple(100, Apple.Color.RED);
+        apples = List.of(appleA, appleB, appleC, appleD, appleE);
     }
 }
