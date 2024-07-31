@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 /**
  * chapter 02 : 동작 파라미터화 코드 전달하기
  */
-public class App {
+public class Chapter02App {
 
     public static List<Apple> filterApples(List<Apple> inventory,
                                            ApplePredicate<Apple> p) {
