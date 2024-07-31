@@ -4,11 +4,16 @@ import java.util.Date;
 
 public class Apple {
     public enum Color {
-        RED, GREEN, BLUE, EMPTY;
+        RED, GREEN, BLUE, EMPTY
+    }
+
+    public enum Country {
+        KOREA, JAPAN, USA
     }
 
     private final int weight;
     private final Color color;
+    private final Country country;
     private final Date birth;
 
     public int getWeight() {
@@ -17,6 +22,10 @@ public class Apple {
 
     public Color getColor() {
         return color;
+    }
+
+    public Country getCountry() {
+        return country;
     }
 
     public boolean isHeavyApple(Apple apple) {
@@ -35,22 +44,32 @@ public class Apple {
         return this.weight > weight;
     }
 
+    public Apple(int weight, Color color, Date date, Country country) {
+        this.weight = weight;
+        this.color = color;
+        this.birth = date;
+        this.country = country;
+    }
+
     public Apple(int weight, Color color, Date date) {
         this.weight = weight;
         this.color = color;
         this.birth = date;
+        this.country = Country.KOREA;
     }
 
     public Apple(int weight, Color color) {
         this.weight = weight;
         this.color = color;
         this.birth = new Date();
+        this.country = Country.KOREA;
     }
 
     public Apple() {
         this.weight = 10;
         this.color = Color.RED;
         this.birth = new Date();
+        this.country = Country.KOREA;
     }
 
     @Override
@@ -58,6 +77,7 @@ public class Apple {
         return "Apple{" +
                "weight=" + weight +
                ", color=" + color +
+               ", country=" + country +
                ", birth=" + birth +
                '}';
     }
