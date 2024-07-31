@@ -1,6 +1,6 @@
 package com.gooroomee.chapter02;
 
-import com.gooroomee.chapter01.study.Apple;
+import com.gooroomee.domain.Apple;
 import com.gooroomee.chapter02.study.AppleGreenColorPredicate;
 import com.gooroomee.chapter02.study.AppleHeavyWeightPredicate;
 import org.junit.Assert;

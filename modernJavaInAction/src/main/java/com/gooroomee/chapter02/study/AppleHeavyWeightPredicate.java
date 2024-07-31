@@ -1,7 +1,7 @@
 package com.gooroomee.chapter02.study;
 
-import com.gooroomee.chapter01.study.Apple;
-import com.gooroomee.chapter01.study.ApplePredicate;
+import com.gooroomee.domain.Apple;
+import com.gooroomee.domain.ApplePredicate;
 
 public class AppleHeavyWeightPredicate implements ApplePredicate<Apple> {
 

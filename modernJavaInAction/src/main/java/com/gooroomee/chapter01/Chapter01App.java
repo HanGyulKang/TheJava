@@ -1,6 +1,6 @@
 package com.gooroomee.chapter01;
 
-import com.gooroomee.chapter01.study.Apple;
+import com.gooroomee.domain.Apple;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.gooroomee.chapter01;
 
-import com.gooroomee.chapter01.study.Apple;
-import com.gooroomee.chapter01.study.AppleException;
+import com.gooroomee.domain.Apple;
+import com.gooroomee.domain.AppleException;
 import com.gooroomee.chapter02.study.AppleHeavyWeightPredicate;
 import org.junit.Assert;
 import org.junit.Before;
