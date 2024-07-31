@@ -1,6 +1,6 @@
 package com.gooroomee.chapter02.quiz;
 
-import com.gooroomee.chapter01.study.Apple;
+import com.gooroomee.domain.Apple;
 
 public class ApplePrettyPrinter implements ApplePrettyPrint<Apple> {
 

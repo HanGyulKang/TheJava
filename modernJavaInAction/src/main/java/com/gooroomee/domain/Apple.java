@@ -1,4 +1,4 @@
-package com.gooroomee.chapter01.study;
+package com.gooroomee.domain;
 
 public class Apple {
     public enum Color {
