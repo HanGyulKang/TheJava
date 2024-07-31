@@ -5,6 +5,7 @@ import com.gooroomee.chapter01.study.ApplePredicate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * chapter 02 : 동작 파라미터화 코드 전달하기
@@ -21,5 +22,20 @@ public class App {
         }
 
         return result;
+    }
+
+    public static <T> List<T> abstractFilter(List<T> list, Predicate<T> p) {
+        List<T> result = new ArrayList<>();
+        for(T e : list) {
+            if (p.test(e)) {
+                result.add(e);
+            }
+        }
+
+        return result;
+    }
+
+    public static <T> List<T> abstractStreamFilter(List<T> list, Predicate<T> p) {
+        return list.stream().filter(p).toList();
     }
 }

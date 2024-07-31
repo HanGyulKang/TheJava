@@ -36,4 +36,22 @@ public class AppTest {
         Assert.assertEquals(2, greenApples.size());
         Assert.assertEquals(2, heavyApples.size());
     }
+
+    @Test
+    public void appleLambdaTest() {
+        List<Apple> redApples = App.filterApples(apples, a -> Apple.Color.RED == a.getColor());
+        redApples.forEach(a -> Assert.assertEquals(Apple.Color.RED, a.getColor()));
+    }
+
+    @Test
+    public void appleAbstractFilterTest() {
+        List<Apple> redApples = App.abstractFilter(apples, a -> Apple.Color.RED == a.getColor());
+        redApples.forEach(a -> Assert.assertEquals(Apple.Color.RED, a.getColor()));
+    }
+
+    @Test
+    public void appleStreamFilterTest() {
+        List<Apple> redApples = App.abstractStreamFilter(apples, a -> Apple.Color.RED == a.getColor());
+        redApples.forEach(a -> Assert.assertEquals(Apple.Color.RED, a.getColor()));
+    }
 }
