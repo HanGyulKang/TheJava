@@ -11,12 +11,12 @@ import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.List;
+import java.util.function.*;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 public class Chapter03AppTest extends AppTest {
 
@@ -104,5 +104,15 @@ public class Chapter03AppTest extends AppTest {
 
         System.out.println(appliedAppleB);
         System.out.println(appliedAppleC);
+    }
+
+    @Test
+    public void sortingTest() {
+        List<Apple> list = apples.stream()
+                                 .sorted(Comparator.comparing(Apple::getWeight)
+                                                   .reversed()
+                                                   .thenComparing(Apple::getCountry))
+                                 .toList();
+        list.forEach(System.out::println);
     }
 }
