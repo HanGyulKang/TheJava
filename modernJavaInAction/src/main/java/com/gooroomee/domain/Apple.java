@@ -1,5 +1,7 @@
 package com.gooroomee.domain;
 
+import java.util.Date;
+
 public class Apple {
     public enum Color {
         RED, GREEN, BLUE, EMPTY;
@@ -7,6 +9,7 @@ public class Apple {
 
     private final int weight;
     private final Color color;
+    private final Date birth;
 
     public int getWeight() {
         return weight;
@@ -32,16 +35,30 @@ public class Apple {
         return this.weight > weight;
     }
 
-    @Override
-    public String toString() {
-        return "Apple{" +
-               "weight=" + weight +
-               ", color=" + color +
-               '}';
+    public Apple(int weight, Color color, Date date) {
+        this.weight = weight;
+        this.color = color;
+        this.birth = date;
     }
 
     public Apple(int weight, Color color) {
         this.weight = weight;
         this.color = color;
+        this.birth = new Date();
+    }
+
+    public Apple() {
+        this.weight = 10;
+        this.color = Color.RED;
+        this.birth = new Date();
+    }
+
+    @Override
+    public String toString() {
+        return "Apple{" +
+               "weight=" + weight +
+               ", color=" + color +
+               ", birth=" + birth +
+               '}';
     }
 }
