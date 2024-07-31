@@ -2,7 +2,6 @@ package com.gooroomee.chapter01;
 
 import com.gooroomee.chapter01.study.Apple;
 import com.gooroomee.chapter01.study.AppleException;
-import com.gooroomee.chapter02.study.AppleGreenColorPredicate;
 import com.gooroomee.chapter02.study.AppleHeavyWeightPredicate;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,7 +9,7 @@ import org.junit.Test;
 
 import java.util.*;
 
-public class AppTest {
+public class Chapter01AppTest {
 
     Apple appleA;
     Apple appleB;
@@ -32,11 +31,11 @@ public class AppTest {
 
     @Test
     public void testPredicate() {
-        Apple getGreenApple = App.filterApple(apples, appleA::isGreenApple)
-                                 .orElseThrow(AppleException.NoAppleException::thereAreNoApplesOfColor);
+        Apple getGreenApple = Chapter01App.filterApple(apples, appleA::isGreenApple)
+                                          .orElseThrow(AppleException.NoAppleException::thereAreNoApplesOfColor);
         Assert.assertTrue(getGreenApple.colorOf(Apple.Color.GREEN));
 
-        Optional<Apple> apple = App.filterApple(apples, (Apple a) -> Apple.Color.EMPTY == a.getColor());
+        Optional<Apple> apple = Chapter01App.filterApple(apples, (Apple a) -> Apple.Color.EMPTY == a.getColor());
         Assert.assertTrue(apple.isEmpty());
     }
 
@@ -61,6 +60,6 @@ public class AppTest {
         List<Apple> list = apples.stream()
                                  .filter(appleHeavyWeightPredicate::test)
                                  .toList();
-        System.out.println(list);
+        list.forEach(apple -> Assert.assertTrue(apple.isWeightGreaterThan(150)));
     }
 }

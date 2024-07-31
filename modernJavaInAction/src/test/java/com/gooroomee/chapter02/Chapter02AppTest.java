@@ -10,9 +10,8 @@ import org.junit.Test;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.stream.Stream;
 
-public class AppTest {
+public class Chapter02AppTest {
 
     Apple appleA;
     Apple appleB;
@@ -34,27 +33,27 @@ public class AppTest {
 
     @Test
     public void applePredicateTest() {
-        List<Apple> greenApples = App.filterApples(apples, new AppleGreenColorPredicate());
-        List<Apple> heavyApples = App.filterApples(apples, new AppleHeavyWeightPredicate());
+        List<Apple> greenApples = Chapter02App.filterApples(apples, new AppleGreenColorPredicate());
+        List<Apple> heavyApples = Chapter02App.filterApples(apples, new AppleHeavyWeightPredicate());
         Assert.assertEquals(2, greenApples.size());
         Assert.assertEquals(2, heavyApples.size());
     }
 
     @Test
     public void appleLambdaTest() {
-        List<Apple> redApples = App.filterApples(apples, a -> Apple.Color.RED == a.getColor());
+        List<Apple> redApples = Chapter02App.filterApples(apples, a -> Apple.Color.RED == a.getColor());
         redApples.forEach(a -> Assert.assertEquals(Apple.Color.RED, a.getColor()));
     }
 
     @Test
     public void appleAbstractFilterTest() {
-        List<Apple> redApples = App.abstractFilter(apples, a -> Apple.Color.RED == a.getColor());
+        List<Apple> redApples = Chapter02App.abstractFilter(apples, a -> Apple.Color.RED == a.getColor());
         redApples.forEach(a -> Assert.assertEquals(Apple.Color.RED, a.getColor()));
     }
 
     @Test
     public void appleStreamFilterTest() {
-        List<Apple> redApples = App.abstractStreamFilter(apples, a -> Apple.Color.RED == a.getColor());
+        List<Apple> redApples = Chapter02App.abstractStreamFilter(apples, a -> Apple.Color.RED == a.getColor());
         redApples.forEach(a -> Assert.assertEquals(Apple.Color.RED, a.getColor()));
     }
 
