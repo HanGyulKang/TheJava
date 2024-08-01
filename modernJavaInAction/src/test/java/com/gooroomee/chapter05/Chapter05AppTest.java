@@ -2,11 +2,15 @@ package com.gooroomee.chapter05;
 
 import com.gooroomee.AppTest;
 import com.gooroomee.domain.Dish;
+import com.gooroomee.domain.Trader;
+import com.gooroomee.domain.Transaction;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
@@ -101,5 +105,97 @@ public class Chapter05AppTest extends AppTest {
                              .reduce(0, Integer::sum);
         long menuCount2 = menu.stream().count();
         assertEquals(menuCount1, menuCount2);
+    }
+
+    @Test
+    public void quiz() {
+        Trader raoul = new Trader("Raoul", "Cambridge");
+        Trader mario = new Trader("Mario", "Milan");
+        Trader alan = new Trader("Alan", "Cambridge");
+        Trader brian = new Trader("Brian", "Cambridge");
+
+        List<Transaction> transactions = Arrays.asList(
+                new Transaction(brian, 2011, 300),
+                new Transaction(raoul, 2012, 1000),
+                new Transaction(raoul, 2011, 400),
+                new Transaction(mario, 2012, 710),
+                new Transaction(mario, 2012, 700),
+                new Transaction(alan, 2012, 950)
+        );
+
+        // 1
+        System.out.println("1 =======");
+        List<Transaction> answer01 = transactions.stream()
+                                                 .filter(t -> t.getYear() == 2011)
+                                                 .sorted(Comparator.comparing(Transaction::getValue))
+                                                 .toList();
+        answer01.forEach(System.out::println);
+
+        // 2
+        System.out.println("2 =======");
+        Set<String> answer02 = transactions.stream()
+                                           .map(t -> t.getTrader().getCity())
+                                           .collect(Collectors.toSet());
+        answer02.forEach(System.out::println);
+
+        // 3
+        System.out.println("3 =======");
+        List<Trader> answer03 = transactions.stream()
+                                            .map(Transaction::getTrader)
+                                            .filter(trader -> "Cambridge".equals(trader.getCity()))
+                                            .distinct()
+                                            .sorted(Comparator.comparing(Trader::getName))
+                                            .toList();
+        answer03.forEach(System.out::println);
+
+        // 4
+        System.out.println("4 =======");
+        String strAnswer04 = transactions.stream()
+                                         .map(t -> t.getTrader().getName())
+                                         .distinct()
+                                         .sorted()
+                                         .reduce("", (n1, n2) -> n1 + n2); // 이건 좀 억지같다 해답이
+        System.out.println(strAnswer04);
+
+        List<String> answer04 = transactions.stream()
+                                            .map(t -> t.getTrader().getName())
+                                            .distinct()
+                                            .sorted()
+                                            .toList();
+        answer04.forEach(System.out::println);
+
+        // 5
+        System.out.println("5 =======");
+        boolean answer05 = transactions.stream()
+                                       .map(Transaction::getTrader)
+                                       .anyMatch(t -> t.getCity().equals("Milan"));
+        assertTrue(answer05);
+        System.out.println(answer05);
+
+        // 6
+        System.out.println("6 =======");
+        List<Transaction> answer06 = transactions.stream()
+                                                 .filter(t -> "Cambridge".equals(t.getTrader().getCity()))
+                                                 .toList();
+        answer06.forEach(System.out::println);
+
+        // 7
+        System.out.println("7 =======");
+        int max = transactions.stream()
+                              .map(Transaction::getValue)
+                              .reduce(Integer::max)
+                              .get();
+        assertEquals(1000, max);
+        System.out.println(max);
+
+
+        // 8
+        System.out.println("8 =======");
+        int min = transactions.stream()
+                              .map(Transaction::getValue)
+                              .reduce(Integer::min)
+                              .get();
+        assertEquals(300, min);
+        System.out.println(min);
     }
 }
