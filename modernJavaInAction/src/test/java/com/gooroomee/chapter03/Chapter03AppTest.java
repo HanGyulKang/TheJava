@@ -115,4 +115,24 @@ public class Chapter03AppTest extends AppTest {
                                  .toList();
         list.forEach(System.out::println);
     }
+
+    @Test
+    public void combinePredicateTest() {
+        Predicate<Apple> isGreenApple = (Apple apple) -> apple.isGreenApple(apple);
+        Predicate<Apple> negate = isGreenApple.negate();
+        List<Apple> notGreenApple = Chapter02App.abstractFilter(apples, negate);
+        notGreenApple.forEach(a -> Assert.assertTrue(a.colorWithout(Apple.Color.GREEN)));
+
+        // combine
+        Predicate<Apple> and = isGreenApple.and(apple -> apple.getWeight() > 100);
+        Predicate<Apple> or = isGreenApple.or(apple -> apple.getWeight() > 140);
+
+        List<Apple> andApples = Chapter02App.abstractFilter(apples, and);
+        List<Apple> orApples = Chapter02App.abstractFilter(apples, or);
+
+        andApples.forEach(a -> {
+            Assert.assertTrue(a.colorOf(Apple.Color.GREEN));
+            Assert.assertTrue(a.isWeightGreaterThan(100));
+        });
+    }
 }
