@@ -25,6 +25,10 @@ public class Dish {
         return calories;
     }
 
+    public boolean isVegetable() {
+        return isVegetable;
+    }
+
     public Dish(String dishName, boolean isVegetable, Type type, int calories) {
         this.dishName = dishName;
         this.isVegetable = isVegetable;
@@ -49,6 +53,8 @@ public class Dish {
     public String toString() {
         return "Dish{" +
                "dishName='" + dishName + '\'' +
+               ", isVegetable=" + isVegetable +
+               ", type=" + type +
                ", calories=" + calories +
                '}';
     }
