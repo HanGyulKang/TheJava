@@ -6,10 +6,7 @@ import com.gooroomee.domain.Trader;
 import com.gooroomee.domain.Transaction;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -182,9 +179,9 @@ public class Chapter05AppTest extends AppTest {
         // 7
         System.out.println("7 =======");
         int max = transactions.stream()
-                              .map(Transaction::getValue)
-                              .reduce(Integer::max)
-                              .get();
+                              .mapToInt(Transaction::getValue)
+                              .max()
+                              .orElse(0);
         assertEquals(1000, max);
         System.out.println(max);
 
@@ -192,9 +189,9 @@ public class Chapter05AppTest extends AppTest {
         // 8
         System.out.println("8 =======");
         int min = transactions.stream()
-                              .map(Transaction::getValue)
-                              .reduce(Integer::min)
-                              .get();
+                              .mapToInt(Transaction::getValue)
+                              .min()
+                              .getAsInt();
         assertEquals(300, min);
         System.out.println(min);
     }
