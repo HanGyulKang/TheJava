@@ -1,6 +1,5 @@
 package com.gooroomee.chapter03;
 
-import com.gooroomee.App;
 import com.gooroomee.AppTest;
 import com.gooroomee.chapter02.Chapter02App;
 import com.gooroomee.chapter03.study.BufferedReaderProcessor;
@@ -16,12 +15,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.*;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 public class Chapter03AppTest extends AppTest {
 
     private String runTest;
-    private final String FILE_PATH = "./src/test/java/com/gooroomee/chapter03/data.txt";
+    private final String FILE_PATH = "./src/test/resources/data.txt";
     Logger log = Logger.getLogger(Chapter03AppTest.class.getName());
 
     private void process(Runnable r) {
