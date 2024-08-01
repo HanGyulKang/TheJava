@@ -2,12 +2,8 @@ package com.gooroomee;
 
 import com.gooroomee.domain.Apple;
 import com.gooroomee.domain.Dish;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.junit.Before;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,8 +26,9 @@ public class AppTest {
     protected Dish dishD;
     protected Dish dishE;
     protected Dish dishF;
+    protected Dish dishG;
 
-    protected List<Dish> dishes;
+    protected List<Dish> menu;
 
     @Before
     public void before() {
@@ -47,13 +44,14 @@ public class AppTest {
 
         apples = List.of(appleA, appleB, appleC, appleD, appleE, appleF, appleG, appleH, appleI);
 
-        dishA = new Dish("쌀밥", 1280);
-        dishB = new Dish("된장국", 1400);
-        dishC = new Dish("샐러드", 1310);
-        dishD = new Dish("햄버거", 2200);
-        dishE = new Dish("요거트", 800);
-        dishF = new Dish("콜라", 600);
+        dishA = new Dish("쌀밥", true, Dish.Type.OTHER, 1280);
+        dishB = new Dish("된장국", false, Dish.Type.OTHER, 1400);
+        dishC = new Dish("샐러드", true, Dish.Type.VEGETABLE, 1310);
+        dishD = new Dish("햄버거", false, Dish.Type.MEAT, 2200);
+        dishE = new Dish("요거트", false, Dish.Type.OTHER, 800);
+        dishF = new Dish("콜라", false, Dish.Type.DRINK, 600);
+        dishG = new Dish("연어스테이크", false, Dish.Type.FISH, 1700);
 
-        dishes = List.of(dishA, dishB, dishC, dishD, dishE, dishF);
+        menu = List.of(dishA, dishB, dishC, dishD, dishE, dishF, dishG);
     }
 }

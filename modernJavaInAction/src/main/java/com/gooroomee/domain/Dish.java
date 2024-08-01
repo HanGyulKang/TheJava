@@ -4,19 +4,31 @@ import java.util.Objects;
 
 public class Dish {
 
+    public enum Type {
+        MEAT, FISH, VEGETABLE, OTHER, DRINK
+    }
+
     private final String dishName;
+    private final boolean isVegetable;
+    private final Type type;
     private final int calories;
 
     public String getDishName() {
         return dishName;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     public int getCalories() {
         return calories;
     }
 
-    public Dish(String dishName, int calories) {
+    public Dish(String dishName, boolean isVegetable, Type type, int calories) {
         this.dishName = dishName;
+        this.isVegetable = isVegetable;
+        this.type = type;
         this.calories = calories;
     }
 
