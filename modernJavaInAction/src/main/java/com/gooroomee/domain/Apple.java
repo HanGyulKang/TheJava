@@ -40,6 +40,10 @@ public class Apple {
         return this.color == color;
     }
 
+    public boolean colorWithout(Color color) {
+        return this.color != color;
+    }
+
     public boolean isWeightGreaterThan(int weight) {
         return this.weight > weight;
     }
