@@ -134,5 +134,24 @@ public class Chapter03AppTest extends AppTest {
             Assert.assertTrue(a.colorOf(Apple.Color.GREEN));
             Assert.assertTrue(a.isWeightGreaterThan(100));
         });
+
+        orApples.forEach(a -> Assert.assertTrue(a.colorOf(Apple.Color.GREEN) || a.isWeightGreaterThan(140)));
+    }
+
+    @Test
+    public void combineFunction() {
+        Function<Integer, Integer> f = x -> x + 1;
+        Function<Integer, Integer> g = x -> x * 2;
+        // andThen으로 조합 : f 실행 -> 결과를 g로 넘김
+        Function<Integer, Integer> andThenFunction = f.andThen(g);
+        int andThenResult = andThenFunction.apply(7);
+
+        Assert.assertEquals((7 + 1) * 2, andThenResult);
+
+        // compose의 경우 인수로 주어진 g부터 실행 후에 f를 실행한다.
+        Function<Integer, Integer> composeFunction = f.compose(g);
+        int composeResult = composeFunction.apply(3);
+
+        Assert.assertEquals((3 * 2) + 1, composeResult);
     }
 }
