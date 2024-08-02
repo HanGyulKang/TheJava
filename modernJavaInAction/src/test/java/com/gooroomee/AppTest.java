@@ -2,8 +2,11 @@ package com.gooroomee;
 
 import com.gooroomee.domain.Apple;
 import com.gooroomee.domain.Dish;
+import com.gooroomee.domain.Trader;
+import com.gooroomee.domain.Transaction;
 import org.junit.Before;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +33,13 @@ public class AppTest {
 
     protected List<Dish> menu;
 
+    protected Trader raoul;
+    protected Trader mario;
+    protected Trader alan;
+    protected Trader brian;
+
+    protected List<Transaction> transactions;
+
     @Before
     public void before() {
         appleA = new Apple(180, Apple.Color.BLUE, new Date(), Apple.Country.KOREA);
@@ -53,5 +63,19 @@ public class AppTest {
         dishG = new Dish("연어스테이크", false, Dish.Type.FISH, 1700);
 
         menu = List.of(dishA, dishB, dishC, dishD, dishE, dishF, dishG);
+
+        raoul = new Trader("Raoul", "Cambridge");
+        mario = new Trader("Mario", "Milan");
+        alan = new Trader("Alan", "Cambridge");
+        brian = new Trader("Brian", "Cambridge");
+
+        transactions = Arrays.asList(
+                new Transaction(brian, 2011, 300),
+                new Transaction(raoul, 2012, 1000),
+                new Transaction(raoul, 2011, 400),
+                new Transaction(mario, 2012, 710),
+                new Transaction(mario, 2012, 700),
+                new Transaction(alan, 2012, 950)
+        );
     }
 }
