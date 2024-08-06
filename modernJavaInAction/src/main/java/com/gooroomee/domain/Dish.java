@@ -8,6 +8,10 @@ public class Dish {
         MEAT, FISH, VEGETABLE, OTHER, DRINK
     }
 
+    public enum CaloricLevel {
+        DIET, NORMAL, FAT
+    }
+
     private final String dishName;
     private final boolean isVegetable;
     private final Type type;

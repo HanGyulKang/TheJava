@@ -2,24 +2,39 @@ package com.gooroomee.chapter06;
 
 import com.gooroomee.AppTest;
 import com.gooroomee.domain.Dish;
-import com.gooroomee.domain.Trader;
 import com.gooroomee.domain.Transaction;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.ToDoubleFunction;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class Chapter06AppTest extends AppTest {
+
+    Map<String, List<String>> dishTags;
+
+    @Before
+    public void setUp() {
+        dishTags = new HashMap<>();
+        dishTags.put("햄버거", List.of("greasy", "salty"));
+        dishTags.put("샐러드", List.of("salty", "roasted"));
+        dishTags.put("요거트", List.of("fried", "crisp"));
+        dishTags.put("된장국", List.of("greasy", "fried"));
+        dishTags.put("쌀밥", List.of("light", "natural"));
+        dishTags.put("연어스테이크", List.of("natural", "salty"));
+        dishTags.put("콜라", List.of("delicious", "unhealthy"));
+    }
+
     /**
      * [STREAM의 구조]
      * <p>
-     * <b>중간연산자</b>({@code filter}, {@code map} ...), <b>최종연산자</b>({@code count}, {@code collect}, {@code findFirst}, {@code forEach}, {@code reduce}...)
+     * <b>중간연산자</b>({@code filter}, {@code map} ...), <b>최종연산자</b>({@code count}, {@code collect}, {@code findFirst},
+     * {@code forEach}, {@code reduce}...)
      * 중간연산자는 여러번 붙을 수 있음. 그렇게 해서 만들어지는게 스트림 파이프라인
      * 모든 중간연산을 지난 이후에 최종연산은 한 번밖에 안 됨
      * <p>
@@ -113,5 +128,43 @@ public class Chapter06AppTest extends AppTest {
         // 이렇게 콤마 추가도 가능 함
         String concatMenuNameWithDelimiter = menu.stream().map(Dish::getDishName).collect(Collectors.joining(", "));
         assertEquals("쌀밥, 된장국, 샐러드, 햄버거, 요거트, 콜라, 연어스테이크", concatMenuNameWithDelimiter);
+    }
+
+    @Test
+    public void groupingTest() {
+        Map<Dish.Type, List<Dish>> groupByType = menu.stream().collect(Collectors.groupingBy(Dish::getType));
+        System.out.println(groupByType);
+
+        Map<Dish.CaloricLevel, List<Dish>> groupByCaloricLevel = menu.stream().collect(Collectors.groupingBy(d -> {
+            if (d.getCalories() <= 400) return Dish.CaloricLevel.DIET;
+            else if (d.getCalories() <= 700) return Dish.CaloricLevel.NORMAL;
+            else return Dish.CaloricLevel.FAT;
+        }));
+        System.out.println(groupByCaloricLevel);
+
+        // group by 안ㄴ에 filter 조건을 넣어줌으로서 필터에 걸리지 않은 key값(아래 예제에서는 type)이 사라지는 경우를 방지한다.
+        Predicate<Dish> dishPredicate = dish -> dish.getCalories() > 1000;
+        Map<Dish.Type, List<Dish>> collectA = menu.stream()
+                                                  .collect(Collectors.groupingBy(
+                                                          Dish::getType,
+                                                          Collectors.filtering(dishPredicate, Collectors.toList()))
+                                                  );
+        assertEquals(5, collectA.keySet().size());
+
+        // mapping을 해서 필요한 값만 특정 Collection으로 집합시킬 수 있다.
+        Map<Dish.Type, Set<String>> collectB = menu.stream()
+                                                   .collect(Collectors.groupingBy(
+                                                           Dish::getType,
+                                                           Collectors.mapping(Dish::getDishName, Collectors.toSet()))
+                                                   );
+        System.out.println(collectB);
+
+        Map<Dish.Type, Set<String>> collectC = menu.stream()
+                                                   .collect(Collectors.groupingBy(Dish::getType,
+                                                                                  Collectors.flatMapping(
+                                                                                          dish -> dishTags.get(dish.getDishName()).stream(),
+                                                                                          Collectors.toSet()))
+                                                   );
+        System.out.println(collectC);
     }
 }
