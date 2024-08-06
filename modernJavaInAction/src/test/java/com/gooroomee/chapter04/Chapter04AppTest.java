@@ -43,7 +43,7 @@ public class Chapter04AppTest extends AppTest {
     public void streamConsumptionTest() {
         Stream<Dish> stream = menu.stream();
         stream.forEach(System.out::println);
-        // 이미 소비한 스트림은 재소비할 수 없다. 최고다 봉균님
+        // 이미 소비한 스트림은 재소비할 수 없다.
         Assert.assertThrows(IllegalStateException.class,
                             () -> stream.forEach(System.out::println));
     }
