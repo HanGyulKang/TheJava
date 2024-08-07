@@ -199,4 +199,20 @@ public class Chapter06AppTest extends AppTest {
                                                                                        Collectors.summingInt(Dish::getCalories)));
         System.out.println(sumCaloriesByType);
     }
+
+    @Test
+    public void partitioningTest() {
+        // 채식과 채식이 아닌 것 구분
+        // 반환 키값은 Boolean
+        Map<Boolean, Set<String>> partitioningByVegetable = menu
+                .stream()
+                .collect(Collectors.partitioningBy(Dish::isVegetable,
+                                                   Collectors.mapping(Dish::getDishName, Collectors.toSet())));
+        System.out.println(partitioningByVegetable);
+
+        Map<Boolean, Map<Dish.Type, Set<Dish>>> collect = menu.stream()
+                                                              .collect(Collectors.partitioningBy(Dish::isVegetable,
+                                                                                                 Collectors.groupingBy(Dish::getType, Collectors.toSet())));
+        System.out.println(collect);
+    }
 }
