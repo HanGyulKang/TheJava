@@ -11,8 +11,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class Chapter06AppTest extends AppTest {
 
@@ -166,5 +166,37 @@ public class Chapter06AppTest extends AppTest {
                                                                                           Collectors.toSet()))
                                                    );
         System.out.println(collectC);
+    }
+
+    @Test
+    public void streamGroupingTest2() {
+        Map<Dish.Type, Long> counting = menu.stream()
+                                            .collect(Collectors.groupingBy(Dish::getType, Collectors.counting()));
+        assertEquals(counting.get(Dish.Type.FISH).intValue(), 1);
+        assertEquals(counting.get(Dish.Type.OTHER).intValue(), 3);
+        assertEquals(counting.get(Dish.Type.DRINK).intValue(), 1);
+        assertEquals(counting.get(Dish.Type.MEAT).intValue(), 1);
+        assertEquals(counting.get(Dish.Type.VEGETABLE).intValue(), 1);
+
+        // 오 이건 좋다 : 타입별 가장 많은 칼로리를 가진 Dish
+        Map<Dish.Type, Optional<Dish>> maxBy = menu.stream()
+                                                   .collect(Collectors.groupingBy(Dish::getType,
+                                                                                  Collectors.maxBy(Comparator.comparingInt(Dish::getCalories))));
+        System.out.println(maxBy);
+
+        // Optional 걷어내기
+        Map<Dish.Type, Dish> noOptional = menu.stream()
+                                              .collect(Collectors.groupingBy(Dish::getType,
+                                                                             Collectors.collectingAndThen(
+                                                                                     Collectors.maxBy(Comparator.comparingInt(Dish::getCalories)),
+                                                                                     Optional::get
+                                                                             )));
+        System.out.println(noOptional);
+
+        // 타입별 총 칼로리 합 그룹핑
+        Map<Dish.Type, Integer> sumCaloriesByType = menu.stream()
+                                                        .collect(Collectors.groupingBy(Dish::getType,
+                                                                                       Collectors.summingInt(Dish::getCalories)));
+        System.out.println(sumCaloriesByType);
     }
 }
