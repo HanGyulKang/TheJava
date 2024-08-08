@@ -1,15 +1,19 @@
 package com.gooroomee.chapter06;
 
 import com.gooroomee.AppTest;
+import com.gooroomee.chapter06.study.PrimeNumberCollector;
+import com.gooroomee.chapter06.study.ToListCollector;
 import com.gooroomee.domain.Dish;
 import com.gooroomee.domain.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
@@ -233,7 +237,30 @@ public class Chapter06AppTest extends AppTest {
     }
 
     @Test
-    public void test2() {
+    public void customCollectorTest() {
+        List<Dish> collect = menu.stream().collect(new ToListCollector<>());
+        List<Dish> listA = menu.stream().collect(Collectors.toList());
+        List<Dish> listB = menu.stream().toList();
+        assertEquals(collect, listA);
+        assertEquals(collect, listB);
+        assertEquals(listA, listB);
 
+        int max = 200;
+        Map<Boolean, List<Integer>> booleanListMap = this.partitionPrimes(max);
+        System.out.println(booleanListMap.get(true));
+    }
+
+    private Map<Boolean, List<Integer>> partitionPrimes(int n) {
+//        return IntStream.rangeClosed(2, n).boxed()
+//                .collect(Collectors.partitioningBy(this::isPrime)); // 소수와 비소수로 분할
+        return IntStream.rangeClosed(2, n).boxed()
+                .collect(new PrimeNumberCollector()); // 소수와 비소수로 분할
+    }
+
+    private boolean isPrime(int candidate) {
+        int candidateRoot = (int) Math.sqrt((double) candidate);
+        return IntStream.rangeClosed(2, candidateRoot)
+                .takeWhile(i -> i <= candidateRoot)
+                .noneMatch(i -> candidate % i == 0);
     }
 }
