@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -208,11 +209,31 @@ public class Chapter06AppTest extends AppTest {
                 .stream()
                 .collect(Collectors.partitioningBy(Dish::isVegetable,
                                                    Collectors.mapping(Dish::getDishName, Collectors.toSet())));
-        System.out.println(partitioningByVegetable);
+        Set<String> noVegetableResult = Set.of("요거트", "연어스테이크", "된장국", "햄버거", "콜라");
+        Set<String> noVegetable = partitioningByVegetable.get(false);
+        assertTrue(noVegetableResult.containsAll(noVegetable));
 
-        Map<Boolean, Map<Dish.Type, Set<Dish>>> collect = menu.stream()
-                                                              .collect(Collectors.partitioningBy(Dish::isVegetable,
-                                                                                                 Collectors.groupingBy(Dish::getType, Collectors.toSet())));
+        Set<String> vegetableResult = Set.of("샐러드", "쌀밥");
+        Set<String> vegetable = partitioningByVegetable.get(true);
+        assertTrue(vegetableResult.containsAll(vegetable));
+
+        Map<Boolean, Map<Dish.Type, Set<String>>> collect = menu.stream()
+                                                                .collect(Collectors.partitioningBy(Dish::isVegetable,
+                                                                           Collectors.groupingBy(Dish::getType,
+                                                                             Collectors.mapping(Dish::getDishName, Collectors.toSet()
+                                                                         ))));
         System.out.println(collect);
+
+        Map<Boolean, Long> counsellingByIsVegetable = menu.stream()
+                                          .collect(Collectors.partitioningBy(Dish::isVegetable, Collectors.counting()));
+        long noVegetableCount = counsellingByIsVegetable.get(false);
+        long vegetableCount = counsellingByIsVegetable.get(true);
+        assertEquals(5, noVegetableCount);
+        assertEquals(2, vegetableCount);
+    }
+
+    @Test
+    public void test2() {
+
     }
 }
