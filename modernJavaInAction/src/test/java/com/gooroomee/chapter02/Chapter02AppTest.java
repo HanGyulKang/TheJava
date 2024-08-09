@@ -17,7 +17,7 @@ public class Chapter02AppTest extends AppTest {
     public void applePredicateTest() {
         List<Apple> greenApples = Chapter02App.filterApples(apples, new AppleGreenColorPredicate());
         List<Apple> heavyApples = Chapter02App.filterApples(apples, new AppleHeavyWeightPredicate());
-        Assert.assertEquals(2, greenApples.size());
+        Assert.assertEquals(3, greenApples.size());
         Assert.assertEquals(2, heavyApples.size());
     }
 
