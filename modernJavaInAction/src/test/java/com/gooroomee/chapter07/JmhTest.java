@@ -9,6 +9,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 @State(Scope.Benchmark)
 @Measurement(iterations = 10, // 테스트 반복 횟수
              time = 10,  // 반복 당 테스트 실행 시간
@@ -114,7 +117,8 @@ public class JmhTest {
 
     @Test
     public void sideEffectSum() {
-        int n = 100;
+        final int n = 100;
+        final int result = 5050;
         for (int i = 0; i < 5; i++) {
             Accumulator accumulator = new Accumulator();
             LongStream.rangeClosed(1, n)
@@ -126,7 +130,7 @@ public class JmhTest {
             LongStream.rangeClosed(1, n)
                       .parallel()
                       .forEach(value::addAndGet);
-            System.out.println("Atomic value : " + value);
+            assertEquals(result, value.get());
         }
     }
 }
