@@ -1,16 +1,17 @@
 package com.gooroomee.chapter07;
 
+import com.gooroomee.chapter07.study.ForkJoinSumCalculator;
 import com.gooroomee.domain.Accumulator;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @State(Scope.Benchmark)
 @Measurement(iterations = 10, // 테스트 반복 횟수
@@ -22,6 +23,8 @@ import static org.junit.Assert.assertTrue;
 @OutputTimeUnit(TimeUnit.MILLISECONDS) // 벤치마크 결과 확인 시간 값
 @Fork(value = 2, jvmArgs = {"-Xms4G", "-Xmx4G"}) // heap에 4G 메모리 공간 할당
 public class JmhTest {
+
+    private final static long LOOP = 21_402_104;
 
     @TearDown
     public void tearDown() {
@@ -116,6 +119,10 @@ public class JmhTest {
     }
 
     @Test
+    /**
+     * {@link com.gooroomee.note.분해성이_높은_자료구조.md}
+     * {@link com.gooroomee.note.효과적인_병렬처리를_위한_고려사항.md}
+     */
     public void sideEffectSum() {
         final int n = 100;
         final int result = 5050;
@@ -132,5 +139,16 @@ public class JmhTest {
                       .forEach(value::addAndGet);
             assertEquals(result, value.get());
         }
+    }
+
+    @Benchmark
+    public void forkJoinSumTest() {
+        // Benchmark                Mode  Cnt   Score   Error  Units
+        // JmhTest.forkJoinSumTest  avgt   20  40.257 ± 3.673  ms/op
+        long[] numbers = LongStream.rangeClosed(1, LOOP).toArray();
+        ForkJoinSumCalculator task = new ForkJoinSumCalculator(numbers);
+        long result = new ForkJoinPool().invoke(task);
+
+        assertEquals(229025038514460L, result);
     }
 }
