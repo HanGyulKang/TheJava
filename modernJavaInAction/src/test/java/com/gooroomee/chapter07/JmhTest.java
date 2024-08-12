@@ -18,6 +18,8 @@ import static org.junit.Assert.assertEquals;
              time = 10,  // 반복 당 테스트 실행 시간
              timeUnit = TimeUnit.MILLISECONDS // 반복 당 테스트 실행 시간 단위
              )
+// Warmup 을 왜 할까?
+// -> JIT 컴파일러에 의해 최적화 되었을 때 상태를 확인해야 함.
 @Warmup(iterations = 10, time = 10, timeUnit = TimeUnit.MILLISECONDS)
 @BenchmarkMode(Mode.AverageTime) // 평균 시간 측정
 @OutputTimeUnit(TimeUnit.MILLISECONDS) // 벤치마크 결과 확인 시간 값

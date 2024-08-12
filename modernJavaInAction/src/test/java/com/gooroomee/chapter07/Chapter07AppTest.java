@@ -2,11 +2,13 @@ package com.gooroomee.chapter07;
 
 import com.gooroomee.AppTest;
 import com.gooroomee.chapter07.study.ForkJoinSumCalculator;
+import com.gooroomee.chapter07.study.WordCounter;
 import org.junit.Test;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
@@ -50,5 +52,35 @@ public class Chapter07AppTest extends AppTest {
         long result = new ForkJoinPool().invoke(task);
 
         assertEquals(229025038514460L, result);
+    }
+
+    private final static String SENTENCE = "Nel       mezzo del cammin di nostra vita " +
+                                           "mi ritrovai in una   selva oscura" +
+                                           " ch  la dritta  via  era smarrita";
+
+    @Test
+    public void spliteratorTest() {
+        int counter = 0;
+        boolean lastSpace = true;
+
+        for (Character c : SENTENCE.toCharArray()) {
+            if (Character.isWhitespace(c)) {
+                lastSpace = true;
+            } else {
+                if (lastSpace) {
+                    counter++;
+                }
+                lastSpace = false;
+            }
+        }
+
+        assertEquals(19, counter);
+
+        WordCounter wordCount = IntStream.rangeClosed(0, SENTENCE.length() - 1)
+                                         .mapToObj(SENTENCE::charAt)
+                                         .reduce(new WordCounter(0, true),
+                                                 WordCounter::accumulate,
+                                                 WordCounter::combine);
+        assertEquals(19, wordCount.getCounter());
     }
 }
