@@ -40,31 +40,32 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-shade-plugin</artifactId>-->
+<!--                <version>3.6.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>shade</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <transformers>-->
+<!--                                <transformer-->
+<!--                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
 <!--                                    <manifestEntries>-->
-<!--                                        <Main-Class>${app.main.class}</Main-Class>-->
-<!--                                        <X-Compile-Source-JDK>${maven.compile.source}</X-Compile-Source-JDK>-->
-<!--                                        <X-Compile-Target-JDK>${maven.compile.target}</X-Compile-Target-JDK>-->
+<!--                                        <Main-Class>com.gooroomee.chapter07.Chapter07App</Main-Class>-->
+<!--                                        <X-Compile-Source-JDK>17</X-Compile-Source-JDK>-->
+<!--                                        <X-Compile-Target-JDK>17</X-Compile-Target-JDK>-->
 <!--                                    </manifestEntries>-->
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
+<!--                                </transformer>-->
+<!--                            </transformers>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--        ###### intelliJ를 사용해서 jmh 플러그인 설치해서 하는게 훨씬 편함 -->
     </build>
 </project>
