@@ -1,14 +1,18 @@
 package com.gooroomee.chapter09;
 
-import com.gooroomee.chapter09.study.OnlineBanking;
-import com.gooroomee.chapter09.study.TemplateMethod;
+import com.gooroomee.chapter09.study.observer.Feed;
+import com.gooroomee.chapter09.study.observer.Guardian;
+import com.gooroomee.chapter09.study.observer.LeMonde;
+import com.gooroomee.chapter09.study.observer.NYTimes;
+import com.gooroomee.chapter09.study.strategy.IsAllLowerCase;
+import com.gooroomee.chapter09.study.strategy.IsNumeric;
+import com.gooroomee.chapter09.study.strategy.Validator;
+import com.gooroomee.chapter09.study.templateMethod.OnlineBanking;
+import com.gooroomee.chapter09.study.templateMethod.TemplateMethod;
 import com.gooroomee.domain.Customer;
-import com.gooroomee.domain.Database;
-import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DesignPattern {
     /**
@@ -18,41 +22,6 @@ public class DesignPattern {
      * 의무 체인 : chain of responsibility
      * 팩토리 : factory
      */
-
-    /**
-     * [ Strategy Pattern ]
-     */
-    @FunctionalInterface
-    public interface ValidationStrategy {
-        boolean execute(String s);
-    }
-
-    public static class IsAllLowerCase implements ValidationStrategy {
-        @Override
-        public boolean execute(String s) {
-            return s.matches("[a-z]+");
-        }
-    }
-
-    public static class IsNumeric implements ValidationStrategy {
-        @Override
-        public boolean execute(String s) {
-            return s.matches("\\d+");
-        }
-    }
-
-    public static class Validator {
-        private final ValidationStrategy strategy;
-
-        public Validator(ValidationStrategy strategy) {
-            this.strategy = strategy;
-        }
-
-        public boolean validate(String s) {
-            return strategy.execute(s);
-        }
-    }
-
     @Test
     public void testStrategyPattern() {
         String str1 = "abcAbDsb";
@@ -88,6 +57,16 @@ public class DesignPattern {
     public void templateMethodTest() {
         // 이 알고리즘을 사용하고 싶은데 그대로는 안 되고 조금 고쳐야하는 상황에서 사용하기 적합
         OnlineBanking onlineBanking = new TemplateMethod();
-        onlineBanking.processCustomer(3, (Customer c) -> System.out.println("Happy! : " + c.getCustomerName()));
+        onlineBanking.processCustomer(3, (Customer c) -> assertEquals("Kim", c.customerName));
+    }
+
+    @Test
+    public void obserbongPatternTest() {
+        // 이벤트 발생 시 한 객체(주제)가 다른 객체 리스트(옵저서)에 자동으로 등록/알림을 보내야하는 상황에서 사용
+        Feed f = new Feed();
+        f.registerObserver(new NYTimes());
+        f.registerObserver(new Guardian());
+        f.registerObserver(new LeMonde());
+        f.notifyObservers("tweet@sad han gyul kang");
     }
 }
