@@ -1,5 +1,9 @@
 package com.gooroomee.chapter09;
 
+import com.gooroomee.chapter09.study.OnlineBanking;
+import com.gooroomee.chapter09.study.TemplateMethod;
+import com.gooroomee.domain.Customer;
+import com.gooroomee.domain.Database;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,6 +22,7 @@ public class DesignPattern {
     /**
      * [ Strategy Pattern ]
      */
+    @FunctionalInterface
     public interface ValidationStrategy {
         boolean execute(String s);
     }
@@ -68,5 +73,21 @@ public class DesignPattern {
         assertFalse(lowerCaseValidator1);
         assertTrue(lowerCaseValidator2);
         assertFalse(lowerCaseValidator3);
+
+        // with lambda
+        Validator numericValidatorWithFunctionalInterface = new Validator((String s) -> s.matches("\\d+"));
+        boolean numericValidate1 = numericValidatorWithFunctionalInterface.validate(str1);
+        boolean numericValidate2 = numericValidatorWithFunctionalInterface.validate(str2);
+        boolean numericValidate3 = numericValidatorWithFunctionalInterface.validate(str3);
+        assertFalse(numericValidate1);
+        assertFalse(numericValidate2);
+        assertTrue(numericValidate3);
+    }
+
+    @Test
+    public void templateMethodTest() {
+        // 이 알고리즘을 사용하고 싶은데 그대로는 안 되고 조금 고쳐야하는 상황에서 사용하기 적합
+        OnlineBanking onlineBanking = new TemplateMethod();
+        onlineBanking.processCustomer(3, (Customer c) -> System.out.println("Happy! : " + c.getCustomerName()));
     }
 }
