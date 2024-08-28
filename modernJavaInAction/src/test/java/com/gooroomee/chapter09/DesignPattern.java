@@ -3,6 +3,10 @@ package com.gooroomee.chapter09;
 import com.gooroomee.chapter09.study.chainOfResponsibility.HeaderTextProcessing;
 import com.gooroomee.chapter09.study.chainOfResponsibility.ProcessingObject;
 import com.gooroomee.chapter09.study.chainOfResponsibility.SpellCheckerProcessing;
+import com.gooroomee.chapter09.study.factory.ProductFactory;
+import com.gooroomee.chapter09.study.factory.ProductType;
+import com.gooroomee.chapter09.study.factory.product.Loan;
+import com.gooroomee.chapter09.study.factory.product.Product;
 import com.gooroomee.chapter09.study.observer.Feed;
 import com.gooroomee.chapter09.study.observer.Guardian;
 import com.gooroomee.chapter09.study.observer.LeMonde;
@@ -14,6 +18,9 @@ import com.gooroomee.chapter09.study.templateMethod.OnlineBanking;
 import com.gooroomee.chapter09.study.templateMethod.TemplateMethod;
 import com.gooroomee.domain.Customer;
 import org.junit.Test;
+
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 
@@ -82,5 +89,30 @@ public class DesignPattern {
 
         String result = p1.handle("labdas is cool");
         assertEquals("From bong : lambdas is cool", result);
+    }
+
+    @Test
+    public void factoryTest() {
+        Product loan = ProductFactory.createProduct(ProductType.LOAN);
+        Product bond = ProductFactory.createProduct(ProductType.BOND);
+        Product stock = ProductFactory.createProduct(ProductType.STOCK);
+        assertEquals("Loan", loan.productName());
+        assertEquals("Bond", bond.productName());
+        assertEquals("Stock", stock.productName());
+
+        Product loan1 = ProductFactory.createProduct(ProductType.LOAN, true);
+        Product bond1 = ProductFactory.createProduct(ProductType.BOND, true);
+        Product stock1 = ProductFactory.createProduct(ProductType.STOCK, true);
+        assertEquals("Loan", loan1.productName());
+        assertEquals("Bond", bond1.productName());
+        assertEquals("Stock", stock1.productName());
+
+        Function<ProductType, Product> createProduct = ProductFactory::createProduct;
+        Product loan2 = createProduct.apply(ProductType.LOAN);
+        Product bond2 = createProduct.apply(ProductType.BOND);
+        Product stock2 = createProduct.apply(ProductType.STOCK);
+        assertEquals("Loan", loan2.productName());
+        assertEquals("Bond", bond2.productName());
+        assertEquals("Stock", stock2.productName());
     }
 }
