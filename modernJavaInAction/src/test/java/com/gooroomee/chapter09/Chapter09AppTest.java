@@ -1,6 +1,9 @@
 package com.gooroomee.chapter09;
 
 import com.gooroomee.AppTest;
+import com.gooroomee.chapter09.study.chainOfResponsibility.HeaderTextProcessing;
+import com.gooroomee.chapter09.study.chainOfResponsibility.ProcessingObject;
+import com.gooroomee.chapter09.study.chainOfResponsibility.SpellCheckerProcessing;
 import com.gooroomee.domain.Dish;
 import org.junit.Test;
 
@@ -83,5 +86,16 @@ public class Chapter09AppTest extends AppTest {
                                 .filter(dish -> dish.getCalories() > 300)
                                 .map(Dish::getDishName)
                                 .toList();
+    }
+
+    @Test
+    public void chainOfResponsibilityTest() {
+        ProcessingObject<String> p1 = new HeaderTextProcessing();
+        ProcessingObject<String> p2 = new SpellCheckerProcessing();
+        // 두 객체 작업 연결
+        p1.setSuccessor(p2);
+
+        String result = p1.handle("labdas is cool");
+        assertEquals("From bong : lambdas is cool", result);
     }
 }
