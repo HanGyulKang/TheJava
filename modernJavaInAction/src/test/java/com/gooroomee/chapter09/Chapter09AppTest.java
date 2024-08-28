@@ -1,13 +1,13 @@
 package com.gooroomee.chapter09;
 
 import com.gooroomee.AppTest;
-import com.gooroomee.chapter09.study.chainOfResponsibility.HeaderTextProcessing;
-import com.gooroomee.chapter09.study.chainOfResponsibility.ProcessingObject;
-import com.gooroomee.chapter09.study.chainOfResponsibility.SpellCheckerProcessing;
 import com.gooroomee.domain.Dish;
+import com.gooroomee.domain.Point;
 import org.junit.Test;
+import org.junit.function.ThrowingRunnable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -86,5 +86,26 @@ public class Chapter09AppTest extends AppTest {
                                 .filter(dish -> dish.getCalories() > 300)
                                 .map(Dish::getDishName)
                                 .toList();
+    }
+
+    @Test
+    public void lambdaTestingTest() {
+        Point p1 = new Point(5, 5);
+        Point p2 = p1.moveRightBy(10);
+        assertEquals(15, p2.x());
+        assertEquals(5, p2.y());
+
+        Point p3 = new Point(10, 15);
+        Point p4 = new Point(10, 20);
+        int compare = Point.compareByXAndThenY.compare(p3, p4);
+        assertTrue(compare < 0);
+    }
+
+    @Test
+    public void debuggingTest() {
+        List<Point> points = Arrays.asList(new Point(12, 2), null);
+        ThrowingRunnable r2 = () -> points.stream().map(Point::x).forEach(System.out::println);
+        assertThrows(NullPointerException.class, r2);
+        // 아 씁 미래의 자바 컴파일러에게 람다표현식 디버깅을 맡겼다.
     }
 }
