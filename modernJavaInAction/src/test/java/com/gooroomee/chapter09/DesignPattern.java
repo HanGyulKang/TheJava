@@ -1,5 +1,8 @@
 package com.gooroomee.chapter09;
 
+import com.gooroomee.chapter09.study.chainOfResponsibility.HeaderTextProcessing;
+import com.gooroomee.chapter09.study.chainOfResponsibility.ProcessingObject;
+import com.gooroomee.chapter09.study.chainOfResponsibility.SpellCheckerProcessing;
 import com.gooroomee.chapter09.study.observer.Feed;
 import com.gooroomee.chapter09.study.observer.Guardian;
 import com.gooroomee.chapter09.study.observer.LeMonde;
@@ -68,5 +71,16 @@ public class DesignPattern {
         f.registerObserver(new Guardian());
         f.registerObserver(new LeMonde());
         f.notifyObservers("tweet@sad han gyul kang");
+    }
+
+    @Test
+    public void chainOfResponsibilityTest() {
+        ProcessingObject<String> p1 = new HeaderTextProcessing();
+        ProcessingObject<String> p2 = new SpellCheckerProcessing();
+        // 두 객체 작업 연결
+        p1.setSuccessor(p2);
+
+        String result = p1.handle("labdas is cool");
+        assertEquals("From bong : lambdas is cool", result);
     }
 }

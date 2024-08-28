@@ -87,15 +87,4 @@ public class Chapter09AppTest extends AppTest {
                                 .map(Dish::getDishName)
                                 .toList();
     }
-
-    @Test
-    public void chainOfResponsibilityTest() {
-        ProcessingObject<String> p1 = new HeaderTextProcessing();
-        ProcessingObject<String> p2 = new SpellCheckerProcessing();
-        // 두 객체 작업 연결
-        p1.setSuccessor(p2);
-
-        String result = p1.handle("labdas is cool");
-        assertEquals("From bong : lambdas is cool", result);
-    }
 }
