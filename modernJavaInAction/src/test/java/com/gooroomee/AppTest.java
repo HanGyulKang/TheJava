@@ -1,9 +1,7 @@
 package com.gooroomee;
 
-import com.gooroomee.domain.Apple;
-import com.gooroomee.domain.Dish;
-import com.gooroomee.domain.Trader;
-import com.gooroomee.domain.Transaction;
+import com.gooroomee.chapter10.study.MethodChainingOrderBuilder;
+import com.gooroomee.domain.*;
 import org.junit.Before;
 import org.openjdk.jmh.annotations.State;
 
@@ -40,6 +38,12 @@ public class AppTest {
     protected Trader brian;
 
     protected List<Transaction> transactions;
+
+    protected Order order = new Order();
+    protected Trade trade1 = new Trade();
+    protected Trade trade2 = new Trade();
+    protected Stock stock1 = new Stock();
+    protected Stock stock2 = new Stock();
 
     @Before
     public void before() {
@@ -78,5 +82,38 @@ public class AppTest {
                 new Transaction(mario, 2012, 700),
                 new Transaction(alan, 2012, 950)
         );
+
+
+        // 매우 장황하다.
+//        order.setCustomer("BigBank");
+//        trade1.setType(Trade.Type.BUY);
+//        stock1.setSymbol("IBM");
+//        stock1.setMarket("NYSE");
+//        trade1.setStock(stock1);
+//        trade1.setPrice(125.00);
+//        trade1.setQuantity(80);
+//
+//        order.addTrade(trade1);
+//
+//        trade2.setType(Trade.Type.BUY);
+//        stock2.setSymbol("GOOGLE");
+//        stock2.setMarket("NYSE");
+//        trade2.setStock(stock2);
+//        trade2.setPrice(375.00);
+//        trade2.setQuantity(50);
+//
+//        order.addTrade(trade2);
+
+        // DSL을 이용한다면?
+        order = MethodChainingOrderBuilder.forCustomer("BigBank")
+                                          .buy(80)
+                                          .stock("IBM")
+                                          .on("NYSE")
+                                          .at(125.00)
+                                          .sell(50)
+                                          .stock("GOOGLE")
+                                          .on("NASDAQ")
+                                          .at(375.00)
+                                          .end();
     }
 }
