@@ -108,4 +108,26 @@ public class Chapter09AppTest extends AppTest {
         assertThrows(NullPointerException.class, r2);
         // 아 씁 미래의 자바 컴파일러에게 람다표현식 디버깅을 맡겼다.
     }
+
+    @Test
+    public void informationLoggingTest() {
+        List<Integer> integers = List.of(2, 3, 4, 5);
+        integers.stream()
+                .map(this::add)
+                .filter(x -> x % 2 == 0)
+                .forEach(System.out::println); // logging
+        // forEach로 stream을 소비해버렸다.
+
+        List<Integer> list = integers.stream()
+                                     .map(this::add)
+                                     .peek(x -> System.out.println("add 17 : " + x))
+                                     .filter(x -> x % 2 == 0)
+                                     .peek(x -> System.out.println("mod 2 : " + x))
+                                     .toList();
+        // peek은 각 stream의 요소를 소비한 것 처럼 동작하지만 stream 자체를 소비하진 않는다.
+    }
+
+    private int add(int n) {
+        return n + 17;
+    }
 }
