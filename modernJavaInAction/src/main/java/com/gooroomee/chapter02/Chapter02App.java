@@ -10,6 +10,8 @@ import java.util.function.Predicate;
 
 /**
  * chapter 02 : 동작 파라미터화 코드 전달하기
+ * <br>
+ * {@link com.gooroomee.chapter02.Chapter02AppTest}
  */
 public class Chapter02App {
 

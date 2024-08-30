@@ -2,6 +2,8 @@ package com.gooroomee.chapter10;
 
 /**
  * 람다를 이용한 도메인 전용 언어(DSL : domain-specific languages)
+ * <br>
+ * {@link com.gooroomee.chapter10.Chapter10AppTest}
  */
 public class Chapter10App {
 

@@ -8,6 +8,8 @@ import java.util.function.Predicate;
 
 /**
  * chapter 01 : 입문
+ * <br>
+ * {@link com.gooroomee.chapter01.Chapter01AppTest}
  */
 public class Chapter01App {
 
