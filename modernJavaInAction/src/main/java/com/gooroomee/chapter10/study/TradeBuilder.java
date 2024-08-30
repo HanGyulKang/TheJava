@@ -3,7 +3,6 @@ package com.gooroomee.chapter10.study;
 import com.gooroomee.domain.Trade;
 
 public class TradeBuilder {
-
     private final MethodChainingOrderBuilder builder;
     public final Trade trade = new Trade();
 

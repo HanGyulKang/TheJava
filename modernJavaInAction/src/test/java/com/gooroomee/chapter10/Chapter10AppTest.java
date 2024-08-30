@@ -2,13 +2,13 @@ package com.gooroomee.chapter10;
 
 import com.gooroomee.AppTest;
 import com.gooroomee.chapter10.study.GroupingBuilder;
+import com.gooroomee.chapter10.study.LambdaOrderBuilder;
 import com.gooroomee.chapter10.study.MethodChainingOrderBuilder;
 import com.gooroomee.domain.Dish;
 import com.gooroomee.domain.Order;
 import org.junit.Test;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.gooroomee.chapter10.study.MethodChainingOrderBuilder.*;
 
@@ -97,5 +96,29 @@ public class Chapter10AppTest extends AppTest {
         );
         System.out.println(order);
         // 괄호를 너무 많이 사용해야한다... -> 가독성이 매우 떨어진다.
+    }
+
+    @Test
+    public void functionSequencingUsingLambdaExpressionDSLTest() {
+        order = LambdaOrderBuilder.order(o -> {
+            o.forCustomer("MyBank");
+            o.buy(t -> {
+                t.quantity(80);
+                t.price(125.00);
+                t.stock(s -> {
+                    s.symbol("IBM");
+                    s.market("NYSE");
+                });
+            });
+            o.sell(t -> {
+                t.quantity(50);
+                t.price(375.00);
+                t.stock(s -> {
+                    s.symbol("GOOGLE");
+                    s.market("NASDAQ");
+                });
+            });
+        });
+        System.out.println(order);
     }
 }
