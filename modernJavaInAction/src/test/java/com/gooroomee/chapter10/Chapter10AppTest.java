@@ -1,11 +1,8 @@
 package com.gooroomee.chapter10;
 
 import com.gooroomee.AppTest;
-import com.gooroomee.chapter10.study.GroupingBuilder;
-import com.gooroomee.chapter10.study.LambdaOrderBuilder;
-import com.gooroomee.chapter10.study.MethodChainingOrderBuilder;
+import com.gooroomee.chapter10.study.*;
 import com.gooroomee.domain.Dish;
-import com.gooroomee.domain.Order;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -120,5 +117,13 @@ public class Chapter10AppTest extends AppTest {
             });
         });
         System.out.println(order);
+    }
+
+    @Test
+    public void taxCalculatorTest() {
+        double value = new TaxCalculator().with(Tax.REGIONAL::calculate)
+                                          .with(Tax.SURCHARGE::calculate)
+                                          .calculate(order);
+        System.out.println(value);
     }
 }
