@@ -2,7 +2,9 @@ package com.gooroomee.chapter10;
 
 import com.gooroomee.AppTest;
 import com.gooroomee.chapter10.study.GroupingBuilder;
+import com.gooroomee.chapter10.study.MethodChainingOrderBuilder;
 import com.gooroomee.domain.Dish;
+import com.gooroomee.domain.Order;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -18,6 +20,8 @@ import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.gooroomee.chapter10.study.MethodChainingOrderBuilder.*;
 
 public class Chapter10AppTest extends AppTest {
 
@@ -67,7 +71,31 @@ public class Chapter10AppTest extends AppTest {
     }
 
     @Test
-    public void orderDSLTest() {
+    public void methodChainDSLTest() {
+        // DSL을 이용한다면?
+        order = MethodChainingOrderBuilder.forCustomer("Hana Bank")
+                                          .buy(120)
+                                          .stock("APPLE")
+                                          .on("NYSE")
+                                          .at(301.12)
+                                          .sell(70)
+                                          .stock("COCA_COLA")
+                                          .on("NASDAQ")
+                                          .at(126.03)
+                                          .end();
         System.out.println(order);
+        // 단점 : 연결되는 모든 빌더를 구현해아하고, 상위 빌더와 접착시키는 코드가 많이 필요하다.
+    }
+
+    @Test
+    public void nestedFunctionDSLTest() {
+        order = order("BigBank",
+                      buy(80,
+                          stock("IBM", on("NYSE")), at(125.00)),
+                      sell(50,
+                           stock("GOOGLE", on("NASDAQ")), at(375.00))
+        );
+        System.out.println(order);
+        // 괄호를 너무 많이 사용해야한다... -> 가독성이 매우 떨어진다.
     }
 }
