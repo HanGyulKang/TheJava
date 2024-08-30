@@ -121,9 +121,14 @@ public class Chapter10AppTest extends AppTest {
 
     @Test
     public void taxCalculatorTest() {
-        double value = new TaxCalculator().with(Tax.REGIONAL::calculate)
-                                          .with(Tax.SURCHARGE::calculate)
-                                          .calculate(order);
-        System.out.println(value);
+        double doubleValue = new TaxCalculator().with(Tax.REGIONAL::doubleCalculate)
+                                                .with(Tax.SURCHARGE::doubleCalculate)
+                                                .calculate(order.getValue());
+
+        int intValue = new TaxCalculator().with((int i) -> i * 2)
+                                          .with((int i) -> i * 4)
+                                          .calculate(10);
+        System.out.println(doubleValue);
+        System.out.println(intValue);
     }
 }
